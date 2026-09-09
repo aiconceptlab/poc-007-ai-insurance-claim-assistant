@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="AI Concept Lab POC 007: prepare an editable insurance claim draft from a damage photo and incident account, for human review."
+    />
+    <title>Claimnote · AI Claim Assistant</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/" aria-label="Claimnote home"
+        ><span class="brand-icon">c.</span>claimnote<span class="byline"
+          >AI CONCEPT LAB / 007</span
+        ></a
+      >
+      <div class="header-right">
+        <span id="mode" class="pill">Connecting…</span
+        ><button id="reset" class="text-button">New draft ↺</button>
+      </div>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">LESS BLANK-PAGE STRESS</p>
+          <h1>What happened.<br /><em>Clearly documented.</em></h1>
+          <p class="lead">A photo. Your account. A first draft for a person to review.</p>
+        </div>
+        <div class="purpose">
+          <span class="purpose-icon">↗</span>
+          <p>Prepared with AI.<br /><strong>Reviewed by people.</strong></p>
+          <small>Draft preparation only.<br />No approval or submission.</small>
+        </div>
+      </section>
+      <div class="process" aria-label="Workflow">
+        <span><b>01</b> Add evidence</span><span><b>02</b> Tell your story</span
+        ><span><b>03</b> Review the draft</span>
+      </div>
+      <section id="access" class="access" hidden>
+        <h2>Unlock AI tools</h2>
+        <form id="unlock">
+          <label for="token">Shared access token</label
+          ><input id="token" type="password" autocomplete="off" required /><button
+            class="secondary"
+          >
+            Use token
+          </button>
+        </form>
+      </section>
+      <p id="status" role="status">Loading…</p>
+      <div class="workspace">
+        <section class="intake" aria-label="Evidence and incident account">
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">01 / THE EVIDENCE</p>
+                <h2>Start with what you can show.</h2>
+              </div>
+              <span class="small-tag">JPEG / PNG</span>
+            </div>
+            <div class="photo-area">
+              <img
+                id="photo-preview"
+                src="/assets/damaged-laptop.jpg"
+                alt="Illustrative damaged laptop with cracked screen and dented casing"
+              />
+              <div id="photo-overlay" class="photo-overlay">
+                <span class="upload-icon">↥</span>
+                <p>Add a supporting photo</p>
+                <small>Or explore the fictional laptop example.</small>
+              </div>
+              <span id="photo-label" class="photo-label">ILLUSTRATIVE SAMPLE · NOT ATTACHED</span>
+            </div>
+            <div class="photo-actions">
+              <label class="upload-button" for="photo"
+                >Choose photo<input id="photo" type="file" accept="image/jpeg,image/png" /></label
+              ><button id="sample-photo" class="secondary">Try sample photo</button
+              ><button id="remove-photo" class="text-button" hidden>Remove</button>
+            </div>
+            <p class="hint">
+              Up to 5 MB. Photos are resized to 1600 px and re-encoded in your browser before
+              analysis.
+            </p>
+            <button id="analyze" class="primary" hidden>Analyze this photo <span>↗</span></button>
+            <div id="observations" class="observation" hidden>
+              <p class="eyebrow" id="observation-source">PHOTO OBSERVATIONS · UNCONFIRMED</p>
+              <p id="observation-text"></p>
+              <small id="uncertainty"></small
+              ><button id="use-observations" class="text-button">Use for asset and damage →</button>
+            </div>
+          </div>
+          <div class="panel story">
+            <p class="eyebrow">02 / YOUR ACCOUNT</p>
+            <h2>Tell us what happened.</h2>
+            <p id="question" class="question">
+              When did the incident happen? Please give the exact date.
+            </p>
+            <label for="account">Speak or type your account</label
+            ><textarea
+              id="account"
+              rows="4"
+              maxlength="3000"
+              placeholder="On 7 September 2026, I accidentally dropped my laptop in my home office…"
+            ></textarea>
+            <div class="voice-actions">
+              <button id="record" class="secondary" type="button">● Record answer</button
+              ><span id="recording-status" role="status">Voice available in AI mode</span>
+            </div>
+            <p id="privacy" class="hint"></p>
+            <button id="extract" class="primary" hidden>Add details to draft <span>→</span></button
+            ><button id="sample-account" class="secondary" hidden>
+              Use sample incident account
+            </button>
+            <p class="hint" id="manual-help">
+              You can always enter the details directly in the draft.
+            </p>
+          </div>
+        </section>
+        <section class="draft-column" aria-label="Editable claim draft">
+          <div class="draft-panel">
+            <div class="draft-heading">
+              <div>
+                <p class="eyebrow">03 / YOUR FIRST DRAFT</p>
+                <h2>Make sure it’s your story.</h2>
+              </div>
+              <span class="draft-stamp">DRAFT</span>
+            </div>
+            <p class="draft-id" id="draft-id"></p>
+            <form id="fields" novalidate>
+              <div class="two">
+                <div>
+                  <label for="incidentDate">Incident date</label
+                  ><input id="incidentDate" type="date" min="1900-01-01" /><span
+                    class="field-source"
+                    data-source="incidentDate"
+                  ></span>
+                </div>
+                <div>
+                  <label for="location">Location</label
+                  ><input id="location" maxlength="500" placeholder="e.g. Home office" /><span
+                    class="field-source"
+                    data-source="location"
+                  ></span>
+                </div>
+              </div>
+              <label for="asset">Asset</label
+              ><input id="asset" maxlength="500" placeholder="e.g. Laptop" /><span
+                class="field-source"
+                data-source="asset"
+              ></span
+              ><label for="description">Incident description</label
+              ><textarea
+                id="description"
+                rows="3"
+                maxlength="3000"
+                placeholder="Describe what happened in your own words."
+              ></textarea
+              ><span class="field-source" data-source="description"></span
+              ><label for="damage">Damage described</label
+              ><textarea
+                id="damage"
+                rows="2"
+                maxlength="500"
+                placeholder="Visible or reported damage; keep uncertainty explicit."
+              ></textarea
+              ><span class="field-source" data-source="damage"></span
+              ><label for="category">Provisional claim category</label
+              ><select id="category">
+                <option value="">Needs clarification</option>
+                <option>Accidental damage</option>
+                <option>Liquid damage</option>
+                <option>Theft or loss</option>
+                <option>Other / needs review</option></select
+              ><span class="field-source" data-source="category"></span>
+            </form>
+            <p id="field-error" class="error" role="alert"></p>
+            <div class="completion">
+              <div>
+                <p class="eyebrow">DEMO CHECKLIST</p>
+                <strong id="percentage">0%</strong><span>complete</span>
+              </div>
+              <progress
+                id="progress"
+                max="100"
+                value="0"
+                aria-label="Demo checklist completeness"
+              ></progress>
+              <p id="missing"></p>
+              <details>
+                <summary>What does this percentage mean?</summary>
+                <p>
+                  It measures the presence of fields in this demo checklist. It does not measure
+                  evidence quality, insurer requirements or approval chances.
+                </p>
+                <ul id="checklist"></ul>
+              </details>
+            </div>
+            <div class="receipt">
+              <div>
+                <h3>Purchase receipt</h3>
+                <p id="receipt-label">Missing from this draft</p>
+              </div>
+              <label class="upload-button small" for="receipt"
+                >Attach photo<input id="receipt" type="file" accept="image/jpeg,image/png" /></label
+              ><button id="remove-receipt" class="text-button" hidden>Remove receipt</button>
+            </div>
+            <p class="hint">
+              Receipt photos stay in this page and are included in the JSON bundle. They are not
+              sent for AI analysis.
+            </p>
+            <label class="review"
+              ><input id="reviewed" type="checkbox" /><span
+                >I’ve checked the details in this draft. A person still needs to review the
+                claim.</span
+              ></label
+            >
+            <div class="export-actions">
+              <button id="export-json" class="primary" disabled>
+                Download draft + photos <span>↓</span></button
+              ><button id="export-text" class="secondary" disabled>Download text draft</button>
+            </div>
+            <p class="export-note">
+              JSON bundle includes attachments. Text draft lists filenames.<br />Nothing is sent to
+              an insurer.
+            </p>
+          </div>
+        </section>
+      </div>
+      <footer>
+        <span>AI CONCEPT LAB / POC 007</span>
+        <p>Testing AI ideas to find what’s worth building.</p>
+        <span>Your draft stays in this page until you download it.</span>
+      </footer>
+    </main>
+  </body>
+</html>

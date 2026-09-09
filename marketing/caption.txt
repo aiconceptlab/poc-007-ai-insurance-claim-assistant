@@ -1,0 +1,31 @@
+POC #007: AI Insurance Claim Assistant 💻
+
+A damaged laptop. A clearer claim.
+
+Upload a photo. Explain what happened. Get an editable claim draft for a person to review.
+
+This POC brings together:
+→ Tentative observations from a damage photo
+→ A spoken or typed incident account
+→ Structured fields you can check and edit
+→ A checklist that flags missing evidence
+→ A downloadable draft with supporting photos
+
+In the sample: a cracked screen, a damaged casing, and one missing purchase receipt.
+
+The draft shows 92% checklist completeness. That number measures the presence of the demo's fields and attachments—not the chance of approval.
+
+AI prepares the draft. A person reviews the claim.
+Nothing is approved or submitted automatically.
+
+Built with vision, speech-to-text and structured output, plus a small Node.js backend. No insurer integration needed for the POC.
+
+The source code and no-key sample are free. Live AI uses your own API credits. Carousel examples are illustrative.
+
+👇 Comment “CODE” and I’ll send you the link.
+
+—
+AI Concept Lab / POC #007
+Testing AI ideas to find what’s worth building.
+
+#AI #InsuranceTech #InsurTech #AIAutomation #BuildInPublic #AIConceptLab

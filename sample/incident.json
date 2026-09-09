@@ -1,0 +1,19 @@
+{
+  "label": "Fictional sample. No real claimant, policy or insurance decision.",
+  "account": "On 7 September 2026, in my home office, I accidentally dropped my laptop while moving it from the desk. The screen cracked and the lower-right casing corner was dented.",
+  "fields": {
+    "incidentDate": "2026-09-07",
+    "location": "Home office",
+    "description": "I accidentally dropped my laptop while moving it from the desk. The screen cracked and the lower-right casing corner was dented.",
+    "asset": "Laptop",
+    "damage": "Cracked screen and dented casing corner",
+    "category": "Accidental damage"
+  },
+  "observations": {
+    "asset": "Laptop",
+    "observations": "The screen appears cracked. The lower-right casing corner appears dented.",
+    "uncertainties": "A photo cannot establish cause, internal damage, repair cost or policy coverage.",
+    "source": "sample",
+    "confirmed": false
+  }
+}
