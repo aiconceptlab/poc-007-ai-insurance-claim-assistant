@@ -22,6 +22,8 @@ Verified: sample photo and observations, sample incident fields, 92% and missing
 
 The mobile layout fits without horizontal overflow (document width and scroll width both 375 px). This is a responsive layout check, not a physical iPhone/Safari microphone test. Carousel text and all five full frames were visually inspected; exact sizes are checked programmatically. An actual Instagram upload was not performed.
 
+The browser automation did not return a download-completion event. Its security policy blocked inspecting the internal downloads page. Export generation and attachment bytes passed unit tests, but the browser's final saved-file location/completion was not verified. The UI therefore says "download requested". Check that a file appears in your target browser when you run the live/demo walkthrough.
+
 ## Live checks to run with your configuration
 
 No OpenAI API key was configured for this build. **Live vision, extraction, transcription and microphone recording have not been verified against a paid account.** They are implemented using the official documented patterns linked in README.

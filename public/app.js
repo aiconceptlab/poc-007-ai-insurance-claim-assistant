@@ -310,7 +310,7 @@ function exportDraft(asText) {
       asText ? draftText(d) : JSON.stringify(d, null, 2),
       asText ? "text/yaml" : "application/json",
     );
-    notice("Draft downloaded for human review. Nothing was submitted to an insurer.");
+    notice("Draft download requested for human review. Nothing was submitted to an insurer.");
   } catch (e) {
     notice(e.message, true);
   }
